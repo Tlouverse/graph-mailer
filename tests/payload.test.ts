@@ -77,4 +77,36 @@ describe('buildMessage', () => {
     expect(msg.bccRecipients).toEqual([{ emailAddress: { address: 'b@example.com' } }]);
     expect(msg.replyTo).toEqual([{ emailAddress: { address: 'r@example.com' } }]);
   });
+
+  it('omits attachments when none are provided', () => {
+    const msg = buildMessage({ subject: 'Hi', to: 'a@example.com', html: 'x' });
+    expect(msg.attachments).toBeUndefined();
+  });
+
+  it('maps a Buffer attachment to base64', () => {
+    const content = Buffer.from('hello');
+    const msg = buildMessage({
+      subject: 'Hi',
+      to: 'a@example.com',
+      html: 'x',
+      attachments: [{ name: 'hello.txt', contentType: 'text/plain', content }],
+    });
+    expect(msg.attachments).toEqual([{
+      '@odata.type': '#microsoft.graph.fileAttachment',
+      name: 'hello.txt',
+      contentType: 'text/plain',
+      contentBytes: Buffer.from('hello').toString('base64'),
+    }]);
+  });
+
+  it('maps a base64 string attachment as-is', () => {
+    const contentBytes = Buffer.from('hello').toString('base64');
+    const msg = buildMessage({
+      subject: 'Hi',
+      to: 'a@example.com',
+      html: 'x',
+      attachments: [{ name: 'hello.txt', contentType: 'text/plain', content: contentBytes }],
+    });
+    expect(msg.attachments?.[0]).toMatchObject({ contentBytes });
+  });
 });

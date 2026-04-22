@@ -1,6 +1,6 @@
 import type { Message } from '@microsoft/microsoft-graph-types';
 import { GraphMailError } from './errors.js';
-import type { Address, SendMailOptions } from './types.js';
+import type { Address, Attachment, SendMailOptions } from './types.js';
 
 function toRecipients(
   input: Address | Address[] | undefined,
@@ -39,6 +39,15 @@ export function buildMessage(options: SendMailOptions): Message {
 
   const replyTo = toRecipients(options.replyTo);
   if (replyTo) message.replyTo = replyTo;
+
+  if (options.attachments?.length) {
+    message.attachments = options.attachments.map((a: Attachment) => ({
+      '@odata.type': '#microsoft.graph.fileAttachment',
+      name: a.name,
+      contentType: a.contentType,
+      contentBytes: Buffer.isBuffer(a.content) ? a.content.toString('base64') : a.content,
+    }));
+  }
 
   return message;
 }

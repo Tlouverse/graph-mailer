@@ -25,6 +25,24 @@ export interface GraphMailerConfig {
   defaultFrom?: string;
 }
 
+/**
+ * A file to attach to the email.
+ *
+ * @remarks
+ * The Graph API supports inline attachments up to 4 MB. For larger files
+ * an upload session is required, which is not handled by this package.
+ */
+export interface Attachment {
+  /** Filename as it will appear in the email (e.g. `'report.pdf'`). */
+  name: string;
+
+  /** MIME type of the file (e.g. `'application/pdf'`, `'image/png'`). */
+  contentType: string;
+
+  /** File content as a `Buffer` or a base64-encoded string. */
+  content: Buffer | string;
+}
+
 /** Options passed to {@link GraphMailer.send} for a single email. */
 export interface SendMailOptions {
   /**
@@ -65,4 +83,7 @@ export interface SendMailOptions {
    * @default false
    */
   saveToSentItems?: boolean;
+
+  /** Files to attach to the email. Each attachment must be under 4 MB. */
+  attachments?: Attachment[];
 }

@@ -63,6 +63,7 @@ Reuse the same `GraphMailer` instance across your application — it handles tok
 | `bcc` | `Address \| Address[]` | — | BCC recipient(s) |
 | `replyTo` | `Address \| Address[]` | — | Reply-to address(es) |
 | `saveToSentItems` | `boolean` | — | Default: `false` |
+| `attachments` | `Attachment[]` | — | Files to attach (max 4 MB each) |
 
 *At least one of `html` or `text` is required. `html` takes priority when both are provided.
 
@@ -70,6 +71,16 @@ Reuse the same `GraphMailer` instance across your application — it handles tok
 
 ```ts
 type Address = string | { email: string; name?: string };
+```
+
+#### `Attachment`
+
+```ts
+interface Attachment {
+  name: string;        // filename as it appears in the email
+  contentType: string; // MIME type, e.g. 'application/pdf'
+  content: Buffer | string; // file content as a Buffer or base64 string
+}
 ```
 
 #### Errors
@@ -155,6 +166,7 @@ Réutilisez la même instance `GraphMailer` dans toute votre application — ell
 | `bcc` | `Address \| Address[]` | — | Destinataire(s) en copie cachée |
 | `replyTo` | `Address \| Address[]` | — | Adresse(s) de réponse |
 | `saveToSentItems` | `boolean` | — | Défaut : `false` |
+| `attachments` | `Attachment[]` | — | Fichiers joints (4 Mo max chacun) |
 
 *Au moins `html` ou `text` est requis. `html` est prioritaire si les deux sont fournis.
 
@@ -162,6 +174,16 @@ Réutilisez la même instance `GraphMailer` dans toute votre application — ell
 
 ```ts
 type Address = string | { email: string; name?: string };
+```
+
+#### `Attachment`
+
+```ts
+interface Attachment {
+  name: string;        // nom du fichier tel qu'il apparaît dans l'email
+  contentType: string; // type MIME, ex. 'application/pdf'
+  content: Buffer | string; // contenu en Buffer ou en chaîne base64
+}
 ```
 
 #### Erreurs

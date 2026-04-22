@@ -32,7 +32,7 @@ tests/
 ## Invariants to preserve
 
 - **Zero `process.env` reads.** The consumer passes everything explicitly.
-- **`src/index.ts` exports exactly:** `GraphMailer`, `GraphMailerConfig`, `SendMailOptions`, `Address`, `GraphMailError`, `GraphAuthError`. No internals.
+- **`src/index.ts` exports exactly:** `GraphMailer`, `GraphMailerConfig`, `SendMailOptions`, `Address`, `Attachment`, `GraphMailError`, `GraphAuthError`. No internals.
 - **Single runtime dependency:** `@microsoft/microsoft-graph-client`. Do not add others without discussion.
 - **Node 18+** — native `fetch` and `URLSearchParams` are available, no polyfills.
 - **Token deduplication** in `TokenProvider.getToken()` — concurrent calls must share one in-flight promise. Do not break the `??=` pattern.
@@ -50,7 +50,7 @@ tests/
 
 Do not implement without explicit instruction:
 
-- Attachments
+- Attachments larger than 4 MB (requires upload session)
 - Custom `internetMessageHeaders`
 - Retry logic (the SDK middleware handles basics)
 - Injectable logger
