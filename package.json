@@ -1,0 +1,63 @@
+{
+  "name": "@tlouverse/graph-mailer",
+  "version": "0.2.0",
+  "description": "Send emails via Microsoft Graph API — thin wrapper around the Graph SDK for client-credentials flows.",
+  "license": "MIT",
+  "author": "tlouverse",
+  "keywords": [
+    "microsoft-graph",
+    "email",
+    "mailer",
+    "graph-api",
+    "office365",
+    "azure-ad"
+  ],
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "sideEffects": false,
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Tlouverse/graph-mailer.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Tlouverse/graph-mailer/issues"
+  },
+  "homepage": "https://github.com/Tlouverse/graph-mailer#readme",
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "tsup",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit",
+    "lint": "tsc --noEmit",
+    "prepublishOnly": "npm run build && npm run test"
+  },
+  "dependencies": {
+    "@microsoft/microsoft-graph-client": "^3.0.7"
+  },
+  "devDependencies": {
+    "@microsoft/microsoft-graph-types": "^2.40.0",
+    "@types/node": "^22.0.0",
+    "tsup": "^8.0.0",
+    "typescript": "^5.8.0",
+    "vitest": "^3.0.0"
+  }
+}
