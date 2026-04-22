@@ -1,6 +1,6 @@
 {
   "name": "@tlouverse/graph-mailer",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Send emails via Microsoft Graph API — thin wrapper around the Graph SDK for client-credentials flows.",
   "license": "MIT",
   "author": "tlouverse",
